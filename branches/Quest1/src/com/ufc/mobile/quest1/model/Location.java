@@ -11,6 +11,7 @@ public class Location {
 	private String[] formattedAddress;
 	private Double lat;
 	private Double lng;
+	private String crossStreet;
 	private String postalCode;
 	private String state;
 	
@@ -19,7 +20,7 @@ public class Location {
 
 	public Location(String address, String cc, String city, String country,
 			String[] formattedAddress, Double lat, Double lng,
-			String postalCode, String state) {
+			String postalCode, String state, String crossStreet) {
 		super();
 		this.address = address;
 		this.cc = cc;
@@ -30,6 +31,7 @@ public class Location {
 		this.lng = lng;
 		this.postalCode = postalCode;
 		this.state = state;
+		this.crossStreet = crossStreet;
 	}
 
 	public String getAddress() {
@@ -104,6 +106,14 @@ public class Location {
 		this.state = state;
 	}
 
+	public String getCrossStreet() {
+		return crossStreet;
+	}
+
+	public void setCrossStreet(String crossStreet) {
+		this.crossStreet = crossStreet;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -112,6 +122,8 @@ public class Location {
 		result = prime * result + ((cc == null) ? 0 : cc.hashCode());
 		result = prime * result + ((city == null) ? 0 : city.hashCode());
 		result = prime * result + ((country == null) ? 0 : country.hashCode());
+		result = prime * result
+				+ ((crossStreet == null) ? 0 : crossStreet.hashCode());
 		result = prime * result + Arrays.hashCode(formattedAddress);
 		result = prime * result + ((lat == null) ? 0 : lat.hashCode());
 		result = prime * result + ((lng == null) ? 0 : lng.hashCode());
@@ -150,6 +162,11 @@ public class Location {
 				return false;
 		} else if (!country.equals(other.country))
 			return false;
+		if (crossStreet == null) {
+			if (other.crossStreet != null)
+				return false;
+		} else if (!crossStreet.equals(other.crossStreet))
+			return false;
 		if (!Arrays.equals(formattedAddress, other.formattedAddress))
 			return false;
 		if (lat == null) {
@@ -180,7 +197,8 @@ public class Location {
 		return "Location [address=" + address + ", cc=" + cc + ", city=" + city
 				+ ", country=" + country + ", formattedAddress="
 				+ Arrays.toString(formattedAddress) + ", lat=" + lat + ", lng="
-				+ lng + ", postalCode=" + postalCode + ", state=" + state + "]";
+				+ lng + ", crossStreet=" + crossStreet + ", postalCode="
+				+ postalCode + ", state=" + state + "]";
 	}
 	
 }
