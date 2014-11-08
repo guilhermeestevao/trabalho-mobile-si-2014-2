@@ -14,7 +14,7 @@ import android.widget.ExpandableListView;
 
 public class ListaLocaisActivity extends Activity {
 
-	private List<Local> locais;
+	public static List<Local> locais;
 	private ExpandableListAdapter adapter;
 	private ExpandableListView expandableListView;
 	
@@ -23,17 +23,10 @@ public class ListaLocaisActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_lista_locais);
 
-		Log.i("JSON CHAMADO", String.valueOf(locais.size()));
-		/*Intent it = getIntent();
-		Local[] locaisaux = (Local[]) it.getExtras().get("locais");
-		locais = new ArrayList<Local>();
-		
-		for(int i=0;i<locaisaux.length;i++){
-			locais.add(locaisaux[i]);
-		}
+		List<Local> locais = ListaLocaisActivity.locais;
 		
 		adapter = new ExpandableListAdapter(ListaLocaisActivity.this, locais);
 		expandableListView = (ExpandableListView) findViewById(R.id.listView);
-		expandableListView.setAdapter(adapter);*/
+		expandableListView.setAdapter(adapter);
 	}
 }

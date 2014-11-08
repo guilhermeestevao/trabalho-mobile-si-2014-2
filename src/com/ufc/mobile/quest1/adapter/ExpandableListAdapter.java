@@ -80,7 +80,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 			convertView = inflater.inflate(R.layout.list_itens, null);
 		
 		TextView idLocal = (TextView) convertView.findViewById(R.id.tv_id_local_list_itens);
-		idLocal.setText(String.valueOf(children.getId()));
+		idLocal.setText(String.valueOf(children.getDistancia()));
 		
 		return convertView;
 	}
