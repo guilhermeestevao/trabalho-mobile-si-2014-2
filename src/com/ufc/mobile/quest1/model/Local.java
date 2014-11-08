@@ -6,6 +6,7 @@ public class Local {
 	private Location location;
 	private String name;
 	private Contact contact;
+	private Double distancia;
 	
 	public Local() {
 	}
@@ -48,6 +49,14 @@ public class Local {
 
 	public void setContact(Contact contact) {
 		this.contact = contact;
+	}
+
+	public Double getDistancia() {
+		return distancia;
+	}
+
+	public void setDistancia(Double distancia) {
+		this.distancia = distancia;
 	}
 
 	@Override
