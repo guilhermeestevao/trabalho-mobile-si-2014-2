@@ -311,6 +311,7 @@ int id edit_query 0x7f060033
 int id end 0x7f060016
 int id expand_activities_button 0x7f060029
 int id expanded_menu 0x7f06002f
+int id getJson 0x7f060040
 int id home 0x7f060017
 int id homeAsUp 0x7f060009
 int id hybrid 0x7f060004
@@ -378,6 +379,7 @@ int layout abc_search_view 0x7f030016
 int layout abc_simple_decor 0x7f030017
 int layout activity_main 0x7f030018
 int layout support_simple_spinner_dropdown_item 0x7f030019
+int menu options 0x7f0c0000
 int string abc_action_bar_home_description 0x7f07001a
 int string abc_action_bar_up_description 0x7f07001b
 int string abc_action_menu_overflow_description 0x7f07001c
