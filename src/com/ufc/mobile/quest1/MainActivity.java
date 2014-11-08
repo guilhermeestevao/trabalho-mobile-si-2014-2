@@ -11,6 +11,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -106,11 +107,13 @@ public class MainActivity extends Activity {
 			if(result == null){
 				AlertDialog.Builder builder = new AlertDialog.Builder(
 						MainActivity.this)
-						.setTitle("AtenÃ§Ã£o")
+						.setTitle("Atenção")
 						.setMessage(
-								"NÃ£o foi possivel acessar essas informÃ§Ãµes...")
+								"Não foi possivel acessar essas informações...")
 						.setPositiveButton("OK", null);
 				builder.create().show();
+			}else{
+				Log.i("JSON CHAMADO", result.toString());
 			}
 		}		
 	}
