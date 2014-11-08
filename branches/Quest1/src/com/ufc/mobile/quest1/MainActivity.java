@@ -1,19 +1,18 @@
 package com.ufc.mobile.quest1;
 
 import java.util.List;
-
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.ufc.mobile.quest1.model.Local;
 import com.ufc.mobile.quest1.util.LocalREST;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.Intent;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
@@ -25,7 +24,8 @@ public class MainActivity extends Activity {
 
 	private GoogleMap googleMap;
 	private List<Local> locais;
-	
+	private Location myLocation;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -45,10 +45,7 @@ public class MainActivity extends Activity {
 			googleMap = ((MapFragment) getFragmentManager().findFragmentById(
 					R.id.map)).getMap();
 			new DownloadJsonAsyncTask().execute();
-			// check if map is created successfully or not
-			googleMap.getUiSettings().setMyLocationButtonEnabled(true);
-			googleMap.getUiSettings().setCompassEnabled(true); 
-			googleMap.setMyLocationEnabled(true);
+
 
 			if (googleMap == null) {
 				Toast.makeText(getApplicationContext(),
@@ -63,7 +60,7 @@ public class MainActivity extends Activity {
 		super.onResume();
 		initilizeMap();
 	}
-	
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// TODO Auto-generated method stub
@@ -71,34 +68,16 @@ public class MainActivity extends Activity {
 		inflate.inflate(R.menu.options, menu);
 		return super.onCreateOptionsMenu(menu);
 	}
-	
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// TODO Auto-generated method stub
-		
-		switch (item.getItemId()) {
-		case R.id.visualizarLocais:
-			Intent it = new Intent(MainActivity.this, ListaTodosLocaisActivity.class);
-			
-			Local[] locaisaux = new Local[locais.size()];
-			for(int i=0;i<locais.size();i++){
-				locaisaux[i] = locais.get(i);
-			}
-			
-			it.putExtra("locais", locaisaux);
-			startActivity(it);
-			break;
 
-		default:
-			break;
-		}
-		
-		
 		return super.onOptionsItemSelected(item);
 	}
-	
+
 	class DownloadJsonAsyncTask extends AsyncTask<Void, Void, List<Local>>{
-		
+
 		ProgressDialog dialog;
 
 		@Override
@@ -108,13 +87,13 @@ public class MainActivity extends Activity {
 			dialog = ProgressDialog.show(MainActivity.this, "Aguarde",
 					"Buscando pontos...");
 		}
-		
+
 		@Override
 		protected List<Local> doInBackground(Void... params) {
 			locais = new LocalREST().getLocais();
 			return locais;
 		}
-		
+
 		@Override
 		protected void onPostExecute(List<Local> result) {
 			super.onPostExecute(result);
@@ -122,28 +101,53 @@ public class MainActivity extends Activity {
 			if(result == null){
 				AlertDialog.Builder builder = new AlertDialog.Builder(
 						MainActivity.this)
-						.setTitle("Atenção")
-						.setMessage(
-								"Não foi possivel acessar essas informações...")
+				.setTitle("Atenï¿½ï¿½o")
+				.setMessage(
+						"Nï¿½o foi possivel acessar essas informaï¿½ï¿½es...")
 						.setPositiveButton("OK", null);
 				builder.create().show();
 			}else{
 				addPontos(locais);
 				AlertDialog.Builder builder = new AlertDialog.Builder(
 						MainActivity.this)
-						.setTitle("Atenção")
-						.setMessage(
-								"Foram carregados "+result.size()+" pontos")
+				.setTitle("Atenï¿½ï¿½o")
+				.setMessage(
+						"Foram carregados "+result.size()+" pontos")
 						.setPositiveButton("OK", null);
 				builder.create().show();
 			}
 		}		
 
 		private void addPontos(List<Local> locais){
+			googleMap.getUiSettings().setMyLocationButtonEnabled(true);
+			googleMap.getUiSettings().setCompassEnabled(true); 
+			googleMap.setMyLocationEnabled(true);
+			String locationProvider = LocationManager.NETWORK_PROVIDER;
+			LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+			myLocation = locationManager.getLastKnownLocation(locationProvider);
+
 			for (Local local : locais) {
-				MarkerOptions marker = new MarkerOptions().position(new LatLng(local.getLocation().getLat(), local.getLocation().getLng())).title(local.getName());			 
+				double latitude = local.getLocation().getLat();
+				double longitude = local.getLocation().getLng();
+				MarkerOptions marker = new MarkerOptions().position(new LatLng(latitude, longitude)).title(local.getName());			 
 				googleMap.addMarker(marker);
+				LatLng latLngLocal = new LatLng(latitude, longitude);
+				LatLng myLatLgn = new LatLng(myLocation.getLatitude(), myLocation.getLongitude());
+				double distancia = distance(myLatLgn, latLngLocal);
+				local.setDistancia(distancia);
 			}
+		}
+
+		private double distance(LatLng start, LatLng end){
+			double lat1 = start.latitude;
+			double lat2 = end.latitude;
+			double lon1 = start.longitude;
+			double lon2 = end.longitude;
+			double dLat = Math.toRadians(lat2-lat1);
+			double dLon = Math.toRadians(lon2-lon1);
+			double a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2)) * Math.sin(dLon/2) * Math.sin(dLon/2);
+			double c = 2 * Math.asin(Math.sqrt(a));
+			return 6366000 * c;
 		}
 	}
 }
