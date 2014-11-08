@@ -13,9 +13,9 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -77,7 +77,16 @@ public class MainActivity extends Activity {
 		// TODO Auto-generated method stub
 		
 		switch (item.getItemId()) {
-		case R.id.getJson:
+		case R.id.visualizarLocais:
+			Intent it = new Intent(MainActivity.this, ListaTodosLocaisActivity.class);
+			
+			Local[] locaisaux = new Local[locais.size()];
+			for(int i=0;i<locais.size();i++){
+				locaisaux[i] = locais.get(i);
+			}
+			
+			it.putExtra("locais", locaisaux);
+			startActivity(it);
 			break;
 
 		default:
@@ -113,16 +122,16 @@ public class MainActivity extends Activity {
 			if(result == null){
 				AlertDialog.Builder builder = new AlertDialog.Builder(
 						MainActivity.this)
-						.setTitle("Atenï¿½ï¿½o")
+						.setTitle("Atenção")
 						.setMessage(
-								"NÃ£o foi possivel acessar essas informaï¿½ï¿½es...")
+								"Não foi possivel acessar essas informações...")
 						.setPositiveButton("OK", null);
 				builder.create().show();
 			}else{
 				addPontos(locais);
 				AlertDialog.Builder builder = new AlertDialog.Builder(
 						MainActivity.this)
-						.setTitle("AtenÃ§Ã£o")
+						.setTitle("Atenção")
 						.setMessage(
 								"Foram carregados "+result.size()+" pontos")
 						.setPositiveButton("OK", null);
