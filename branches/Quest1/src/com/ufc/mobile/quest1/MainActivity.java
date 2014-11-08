@@ -44,7 +44,7 @@ public class MainActivity extends Activity {
 		if (googleMap == null) {
 			googleMap = ((MapFragment) getFragmentManager().findFragmentById(
 					R.id.map)).getMap();
-
+			new DownloadJsonAsyncTask().execute();
 			// check if map is created successfully or not
 			if (googleMap == null) {
 				Toast.makeText(getApplicationContext(),
@@ -74,7 +74,6 @@ public class MainActivity extends Activity {
 		
 		switch (item.getItemId()) {
 		case R.id.getJson:
-			new DownloadJsonAsyncTask().execute();
 			break;
 
 		default:
@@ -99,25 +98,24 @@ public class MainActivity extends Activity {
 		
 		@Override
 		protected List<Local> doInBackground(Void... params) {
-			// TODO Auto-generated method stub
 			locais = new LocalREST().getLocais();
 			return locais;
 		}
 		
 		@Override
 		protected void onPostExecute(List<Local> result) {
-			// TODO Auto-generated method stub
 			super.onPostExecute(result);
 			dialog.dismiss();
 			if(result == null){
 				AlertDialog.Builder builder = new AlertDialog.Builder(
 						MainActivity.this)
-						.setTitle("Atenção")
+						.setTitle("Aten��o")
 						.setMessage(
-								"Não foi possivel acessar essas informações...")
+								"Não foi possivel acessar essas informa��es...")
 						.setPositiveButton("OK", null);
 				builder.create().show();
 			}else{
+				addPontos(locais);
 				AlertDialog.Builder builder = new AlertDialog.Builder(
 						MainActivity.this)
 						.setTitle("Atenção")
@@ -125,7 +123,6 @@ public class MainActivity extends Activity {
 								"Foram carregados "+result.size()+" pontos")
 						.setPositiveButton("OK", null);
 				builder.create().show();
-				addPontos(result);
 			}
 		}		
 
