@@ -195,11 +195,18 @@ public class Location implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Location [address=" + address + ", cc=" + cc + ", city=" + city
-				+ ", country=" + country + ", formattedAddress="
-				+ Arrays.toString(formattedAddress) + ", lat=" + lat + ", lng="
-				+ lng + ", crossStreet=" + crossStreet + ", postalCode="
-				+ postalCode + ", state=" + state + "]";
+		
+		String dados = "";
+		dados+="address: "+address+"\n";
+		dados+="cc: "+cc+"\n";
+		dados+="city: "+city+"\n";
+		dados+="country: "+country+"\n";
+		dados+="lat: "+lat+"\n";
+		dados+="lng: "+lng+"\n";
+		dados+="crossStreet: "+crossStreet+"\n";
+		dados+="postalCode: "+postalCode+"\n";
+		dados+="state: "+state+"\n";
+		return dados;
 	}
 	
 }

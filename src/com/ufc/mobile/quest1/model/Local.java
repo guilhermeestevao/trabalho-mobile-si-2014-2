@@ -2,7 +2,7 @@ package com.ufc.mobile.quest1.model;
 
 import java.io.Serializable;
 
-public class Local implements Serializable{
+public class Local implements Serializable, Comparable<Local>{
 
 	private long id;
 	private Location location;
@@ -104,8 +104,23 @@ public class Local implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Local [id=" + id + ", location=" + location + ", name=" + name
-				+ ", contact=" + contact + "]";
+		String dados = "";
+		dados+="id: "+id+"\n";
+		dados+="name: "+name+"\n";
+		dados+="distancia: "+String.format("%.2f", distancia)+" \n\n";
+		dados+="Contact: \n"+contact.toString()+"\n";
+		dados+="Location: \n"+location.toString()+"\n";
+		return dados;
+	}
+
+	@Override
+	public int compareTo(Local another) {
+		if(this.distancia > another.distancia){
+			return 1;
+		}else if(this.distancia < another.distancia){
+			return -1;
+		}
+		return 1;
 	}
 	
 }

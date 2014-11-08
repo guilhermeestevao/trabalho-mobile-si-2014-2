@@ -9,7 +9,8 @@
         android:id="@+id/tv_id_local_list_itens"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
+        android:gravity="left"
+        android:layout_marginLeft="30dp"
         android:text=""
         android:textSize="18sp"
         android:textStyle="bold" />

@@ -135,10 +135,10 @@ public class Contact implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Contact [formattedPhone=" + formattedPhone + ", phone=" + phone
-				+ ", facebookName=" + facebookName + ", twitter=" + twitter
-				+ ", facebook=" + facebook + ", facebookUsername="
-				+ facebookUsername + "]";
+		String dados = "";
+		dados+="formattedPhone: "+formattedPhone+"\n";
+		dados+="facebookName: "+facebookName+"\n";
+		dados+="twitter: "+twitter+"\n";
+		return dados;
 	}
-	
 }

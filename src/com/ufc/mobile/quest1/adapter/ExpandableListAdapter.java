@@ -1,8 +1,10 @@
 package com.ufc.mobile.quest1.adapter;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
+import com.google.android.gms.plus.model.people.Person.Collection;
 import com.ufc.mobile.quest1.R;
 import com.ufc.mobile.quest1.model.Local;
 
@@ -23,7 +25,8 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 	public ExpandableListAdapter(Activity activity, List<Local> locais) {
 		this.activity = activity;
 		this.inflater = activity.getLayoutInflater();
-		this.locais = locais;		
+		this.locais = locais;
+		Collections.sort(locais);
 	}
 	
 	@Override
@@ -80,7 +83,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 			convertView = inflater.inflate(R.layout.list_itens, null);
 		
 		TextView idLocal = (TextView) convertView.findViewById(R.id.tv_id_local_list_itens);
-		idLocal.setText(String.valueOf(children.getDistancia()));
+		idLocal.setText(String.valueOf(children.toString()));
 		
 		return convertView;
 	}
