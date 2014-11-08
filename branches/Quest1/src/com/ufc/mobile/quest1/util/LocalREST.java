@@ -14,9 +14,9 @@ import com.ufc.mobile.quest1.model.Local;
 import com.ufc.mobile.quest1.model.Location;
 
 public class LocalREST {
-	
-	private static final String URL = "http://192.168.0.105:8080/";
-	
+
+	private static final String URL = "http://192.168.0.118:8080/";
+
 	public List<Local> getLocais(){
 		String[] resposta = new WebServiceCliente().get(URL);
 		if(resposta[0].equals("200")){
@@ -26,63 +26,119 @@ public class LocalREST {
 			return null;
 		}
 	}
-	
+
 	private List<Local> getLocais(String json){
+
 		List<Local> venues = new ArrayList<Local>();
-		
+
 		try{
 			JSONObject jsonObject = new JSONObject(json);
-			JSONArray jsonArray = jsonObject.getJSONArray("venues");
-			JSONObject local;
-			
-			for(int i = 0; i < jsonArray.length(); i++){
-				local = jsonArray.getJSONObject(i);
-				Local localaux = new Local();
-				localaux.setId(Long.parseLong(local.getString("id")));
-				JSONObject contactJson = local.getJSONObject("contact");
+			JSONArray jarray = jsonObject.getJSONArray("venues");
+			JSONObject jsonObjLocal;
+
+			for (int i = 0; i < jarray.length(); i++) {
+				jsonObjLocal = new JSONObject(jarray.getString(i));
+				Local local = new Local();
+
+				//Obtendo informações simples como id e nome
+				long id = jsonObjLocal.getLong("id");
+				local.setId(id);
+				String name = jsonObjLocal.getString("name");
+				local.setName(name);
+
+				//Obtendo informações de contatos
+				JSONObject jsonObjConntact = jsonObjLocal.getJSONObject("contact");
 				Contact contact = new Contact();
-				if(contactJson.has("facebookName"))
-					contact.setFacebookName(contactJson.getString("facebookName"));
-				if(contactJson.has("twitter"))
-					contact.setTwitter(contactJson.getString("twitter"));
-				if(contactJson.has("phone"))
-					contact.setPhone(contactJson.getString("phone"));
-				if(contactJson.has("facebook"))
-					contact.setFacebook(contactJson.getString("facebook"));
-				if(contactJson.has("formattedPhone"))
-					contact.setFormattedPhone(contactJson.getString("formattedPhone"));
-				if(contactJson.has("facebookUsername"))
-					contact.setFacebookUsername(contactJson.getString("facebookUsername"));
-				localaux.setContact(contact);
+				String phone;
+				String formattedPhone;
+				String twitter;
+				String facebookName;
+				String facebook;
+				String facebookUsername;
+				if(jsonObjConntact.has("phone")){
+					phone = jsonObjConntact.getString("phone");
+					contact.setPhone(phone);
+				}
+				if(jsonObjConntact.has("formattedPhone")){
+					formattedPhone = jsonObjConntact.getString("formattedPhone");
+					contact.setFormattedPhone(formattedPhone);
+				}
+				if(jsonObjConntact.has("twitter")){
+					twitter = jsonObjConntact.getString("twitter");
+					contact.setTwitter(twitter);
+				}
+				if(jsonObjConntact.has("facebookName")){
+					facebookName = jsonObjConntact.getString("facebookName");
+					contact.setFacebookName(facebookName);
+				}
+				if(jsonObjConntact.has("facebook")){
+					facebook = jsonObjConntact.getString("facebook");
+					contact.setFacebook(facebook);
+				}
+				if(jsonObjConntact.has("facebookUsername")){
+					facebookUsername = jsonObjConntact.getString("facebookUsername");
+					contact.setFacebookUsername(facebookUsername);
+				}
+				local.setContact(contact);
+
+				//Obtendo informações de localização
+				JSONObject jsonObjLocation = jsonObjLocal.getJSONObject("location");
 				Location location = new Location();
-				JSONObject locationJSON = local.getJSONObject("location");
-				if(contactJson.has("address"))
-					location.setAddress(locationJSON.getString("address"));
-				if(contactJson.has("cc"))
-					location.setCc(locationJSON.getString("cc"));
-				if(contactJson.has("city"))
-					location.setCity(locationJSON.getString("city"));
-				if(contactJson.has("crossStreet"))
-					location.setCrossStreet(locationJSON.getString("crossStreet"));
-				if(contactJson.has("country"))
-					location.setCountry(locationJSON.getString("country"));
-				if(contactJson.has("lat"))
-					location.setLat(Double.parseDouble(locationJSON.getString("lat")));
-				if(contactJson.has("lng"))
-					location.setLng(Double.parseDouble(locationJSON.getString("lng")));
-				if(contactJson.has("postalCode"))
-					location.setPostalCode(locationJSON.getString("postalCode"));
-				if(contactJson.has("state"))
-					location.setState(locationJSON.getString("state"));
-				localaux.setLocation(location);
-				localaux.setName(local.getString("name"));
-				venues.add(localaux);
+				String address;
+				String cc;
+				String city;
+				String country;
+				String[] formattedAddress;
+				Double lat;
+				Double lng;
+				String crossStreet;
+				String postalCode;
+				String state;
+
+				if(jsonObjLocation.has("address")){
+					address = jsonObjLocation.getString("address");
+					location.setAddress(address);
+				}
+				if(jsonObjLocation.has("cc")){
+					cc = jsonObjLocation.getString("cc");
+					location.setCc(cc);
+				}
+				if(jsonObjLocation.has("city")){
+					city = jsonObjLocation.getString("city");
+					location.setCity(city);
+				}
+				if(jsonObjLocation.has("country")){
+					country = jsonObjLocation.getString("country");
+					location.setCountry(country);
+				}
+				if(jsonObjLocation.has("lat")){
+					lat = jsonObjLocation.getDouble("lat");
+					location.setLat(lat);
+				}
+				if(jsonObjLocation.has("lng")){
+					lng = jsonObjLocation.getDouble("lng");
+					location.setLng(lng);
+				}
+				if(jsonObjLocation.has("crossStreet")){
+					crossStreet = jsonObjLocation.getString("crossStreet");
+					location.setCrossStreet(crossStreet);
+				}
+				if(jsonObjLocation.has("postalCode")){
+					postalCode = jsonObjLocation.getString("postalCode");
+					location.setPostalCode(postalCode);
+				}
+				if(jsonObjLocation.has("state")){
+					state = jsonObjLocation.getString("state");
+					location.setState(state);
+				}
+				local.setLocation(location);
+				venues.add(local);
 			}
 			return venues;
 		}catch(JSONException e){
 			Log.i("JSON CHAMADO", e.toString());
 		}
-		
+
 		return venues;
 	}
 }
