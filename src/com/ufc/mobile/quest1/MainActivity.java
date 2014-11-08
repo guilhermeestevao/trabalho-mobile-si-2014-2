@@ -1,10 +1,14 @@
 package com.ufc.mobile.quest1;
 
 import java.util.List;
+
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.ufc.mobile.quest1.model.Local;
 import com.ufc.mobile.quest1.util.LocalREST;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -20,7 +24,8 @@ import android.widget.Toast;
 public class MainActivity extends Activity {
 
 	private GoogleMap googleMap;
-
+	private List<Local> locais;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -95,7 +100,7 @@ public class MainActivity extends Activity {
 		@Override
 		protected List<Local> doInBackground(Void... params) {
 			// TODO Auto-generated method stub
-			List<Local> locais = new LocalREST().getLocais();
+			locais = new LocalREST().getLocais();
 			return locais;
 		}
 		
@@ -107,14 +112,28 @@ public class MainActivity extends Activity {
 			if(result == null){
 				AlertDialog.Builder builder = new AlertDialog.Builder(
 						MainActivity.this)
-						.setTitle("Atenção")
+						.setTitle("AtenÃ§Ã£o")
 						.setMessage(
-								"Não foi possivel acessar essas informações...")
+								"NÃ£o foi possivel acessar essas informaÃ§Ãµes...")
 						.setPositiveButton("OK", null);
 				builder.create().show();
 			}else{
-				Log.i("JSON CHAMADO", result.toString());
+				AlertDialog.Builder builder = new AlertDialog.Builder(
+						MainActivity.this)
+						.setTitle("AtenÃ§Ã£o")
+						.setMessage(
+								"Foram carregados "+result.size()+" pontos")
+						.setPositiveButton("OK", null);
+				builder.create().show();
+				addPontos(result);
 			}
 		}		
+
+		private void addPontos(List<Local> locais){
+			for (Local local : locais) {
+				MarkerOptions marker = new MarkerOptions().position(new LatLng(local.getLocation().getLat(), local.getLocation().getLng())).title(local.getName());			 
+				googleMap.addMarker(marker);
+			}
+		}
 	}
 }
