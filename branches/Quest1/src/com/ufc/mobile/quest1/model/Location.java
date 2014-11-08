@@ -1,8 +1,9 @@
 package com.ufc.mobile.quest1.model;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
-public class Location {
+public class Location implements Serializable{
 
 	private String address;
 	private String cc;

@@ -1,16 +1,20 @@
 package com.ufc.mobile.quest1;
 
+import java.util.ArrayList;
 import java.util.List;
+
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.ufc.mobile.quest1.model.Local;
 import com.ufc.mobile.quest1.util.LocalREST;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.AsyncTask;
@@ -72,7 +76,16 @@ public class MainActivity extends Activity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// TODO Auto-generated method stub
+		switch (item.getItemId()) {
+		case R.id.visualizarLocais:
+			Intent it = new Intent(this, ListaLocaisActivity.class);
+			ListaLocaisActivity.locais = this.locais;
+			startActivity(it);
+			break;
 
+		default:
+			break;
+		}
 		return super.onOptionsItemSelected(item);
 	}
 

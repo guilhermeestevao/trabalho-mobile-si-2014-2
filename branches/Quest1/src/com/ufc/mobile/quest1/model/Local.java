@@ -1,6 +1,8 @@
 package com.ufc.mobile.quest1.model;
 
-public class Local {
+import java.io.Serializable;
+
+public class Local implements Serializable{
 
 	private long id;
 	private Location location;
