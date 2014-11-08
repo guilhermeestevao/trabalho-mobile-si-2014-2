@@ -53,6 +53,7 @@ public class LocalREST {
 				location.setAddress(locationJSON.getString("address"));
 				location.setCc(locationJSON.getString("cc"));
 				location.setCity(locationJSON.getString("city"));
+				location.setCrossStreet(locationJSON.getString("crossStreet"));
 				location.setCountry(locationJSON.getString("country"));
 				location.setLat(Double.parseDouble(locationJSON.getString("lat")));
 				location.setLng(Double.parseDouble(locationJSON.getString("lng")));
