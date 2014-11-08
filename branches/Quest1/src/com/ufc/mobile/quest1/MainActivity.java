@@ -46,6 +46,10 @@ public class MainActivity extends Activity {
 					R.id.map)).getMap();
 			new DownloadJsonAsyncTask().execute();
 			// check if map is created successfully or not
+			googleMap.getUiSettings().setMyLocationButtonEnabled(true);
+			googleMap.getUiSettings().setCompassEnabled(true); 
+			googleMap.setMyLocationEnabled(true);
+
 			if (googleMap == null) {
 				Toast.makeText(getApplicationContext(),
 						"Sorry! unable to create maps", Toast.LENGTH_SHORT)
@@ -109,9 +113,9 @@ public class MainActivity extends Activity {
 			if(result == null){
 				AlertDialog.Builder builder = new AlertDialog.Builder(
 						MainActivity.this)
-						.setTitle("Atenção")
+						.setTitle("Atenï¿½ï¿½o")
 						.setMessage(
-								"NÃ£o foi possivel acessar essas informações...")
+								"NÃ£o foi possivel acessar essas informaï¿½ï¿½es...")
 						.setPositiveButton("OK", null);
 				builder.create().show();
 			}else{
