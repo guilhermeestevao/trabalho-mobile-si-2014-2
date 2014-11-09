@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">PraticaQuest5</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="compartilhar">Compartilhar</string>
+	<string name="custo_por_pessoa">Custo por Pessoa</string>
+    <string name="media_da_avaliacao">Média da Avaliação</string>
+	<string name="nome_local">Pé de Serra</string>
+	<string name="descricao_local">Descrição do local</string>
+    <string name="atendimento">Atendimento</string>
+    <string name="comida">comida</string>
+	<string name="custo_beneficio">Custo Benefício</string>
+	<string name="ambiente">Ambiente</string>
+	<string name="estabelecimento_possui">O estabelicimento possui:</string>
+	<string name="servico_reserva">Serviço de Reserva</string>
+	<string name="mesas_externas">Mesas Externas</string>
+	<string name="musica_ao_vivo">Música ao vivo</string>
+	<string name="servico_entrega">Serviço de Entrega</string>
+	<string name="voce_voltaria_ao_local">Você voltaria a este local?</string>
+	<string name="sim">Sim</string>
+	<string name="nao">Não</string>
+	
+	<string name="action_settings">Opções</string>
+    <string name="action_compartilhar">Compartilhar</string>
+    <string name="action_enviar">Enviar</string>
+	
+    <string-array name="opcoes_local">
+        <item>Café da Manhã</item>
+        <item>Brunch</item>
+        <item>Almoço</item>
+        <item>Jantar</item>
+        <item>Café ou Chá</item>
+        <item>Bebidas</item>
+        <item>Refeições da Madrugada</item>
+    </string-array>
+
+    <string name="title_activity_activity_resposta">ActivityResposta</string>
+    <string name="title_activity_list">Lista Amigos</string>
+    <string name="title_activity_activity_friends_checked">ActivityFriendsChecked</string>
+    
+    
+    
+
+</resources>
