@@ -2,6 +2,7 @@ package com.ufc.mobile.quest1;
 
 import java.util.List;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.InfoWindowAdapter;
 import com.google.android.gms.maps.GoogleMap.OnCameraChangeListener;
@@ -40,7 +41,7 @@ public class MainActivity extends Activity {
 	private GoogleMap googleMap;
 	private List<Local> locais;
 	private Location myLocation;
-
+	private static final LatLng QUIXADA = new LatLng(-4.96843850, -39.016125);
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -60,8 +61,7 @@ public class MainActivity extends Activity {
 			googleMap = ((MapFragment) getFragmentManager().findFragmentById(
 					R.id.map)).getMap();
 			new DownloadJsonAsyncTask().execute();
- 
-
+			googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(QUIXADA, 15));
 			if (googleMap == null) {
 				Toast.makeText(getApplicationContext(),
 						"Sorry! unable to create maps", Toast.LENGTH_SHORT)
