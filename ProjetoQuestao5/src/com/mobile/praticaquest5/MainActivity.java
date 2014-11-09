@@ -1,10 +1,15 @@
 package com.mobile.praticaquest5;
 
+import com.mobile.praticaquest5.sqlite.KeepSQLHelper;
+
 import com.mobile.praticaquest5.R;
+import com.mobile.praticaquest5.dao.AvaliacaoDAO;
+import com.mobile.praticaquest5.model.Avaliacao;
 
 import android.support.v7.app.ActionBarActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -35,21 +40,15 @@ public class MainActivity extends ActionBarActivity {
 	private RadioGroup RGvoltarAoLocal;
 	private Button btnEnviar;
 	private String local;
-	private long id;
+	private long idLocal;
+	private KeepSQLHelper helper;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-
-		if(getIntent().hasExtra("local") && getIntent().hasExtra("id")){
-			 local = getIntent().getExtras().getString("local");
-			 id = getIntent().getExtras().getLong("id");
-			 Toast.makeText(this, id+" "+local, Toast.LENGTH_LONG).show();
-		}
+		helper = KeepSQLHelper.getInstance(this);
 		
-	
-	
 		TVnomeLocal = (TextView) findViewById(R.id.nomeLocal);
 		ETtituloAvaliacao = (EditText) findViewById(R.id.tituloAvaliacao);
 		SfazerNoLocal = (Spinner) findViewById(R.id.fazerNoLocal);
@@ -63,6 +62,12 @@ public class MainActivity extends ActionBarActivity {
 		CBmusicaAoVivo = (CheckBox) findViewById(R.id.musica_ao_vivo);
 		CBservicoEntrega = (CheckBox) findViewById(R.id.servico_entrega);
 		RGvoltarAoLocal = (RadioGroup) findViewById(R.id.radio_group_voltaria);
+		
+		if(getIntent().hasExtra("local") && getIntent().hasExtra("id")){
+			 local = getIntent().getExtras().getString("local");
+			 idLocal = getIntent().getExtras().getLong("id");
+			 TVnomeLocal.setText(local);
+		}
 
 		btnEnviar = (Button) findViewById(R.id.btn_enviar_dados);
 
@@ -98,6 +103,19 @@ public class MainActivity extends ActionBarActivity {
 
 					Intent it = new Intent(MainActivity.this,
 							ActivityResposta.class);
+					
+					Avaliacao avaliacao = new Avaliacao();
+					avaliacao.setIdLocal(idLocal);
+					avaliacao.setNomeLocal(nomeLocal);
+					avaliacao.setAvaliacaoCustoLocal(custoPorPessoa);
+					avaliacao.setMediaGeralLocal(mediaAvaliacao);
+					
+					AvaliacaoDAO dao = new AvaliacaoDAO(MainActivity.this);
+					dao.open();
+					Avaliacao newAvaliacao = dao.insert(avaliacao);
+					dao.close();
+					
+					it.putExtra("idLocal", idLocal);
 					it.putExtra("nomeLocal", nomeLocal);
 					it.putExtra("tituloLocal", tituloLocal);
 					it.putExtra("mediaAvaliacao", mediaAvaliacao);
@@ -127,5 +145,11 @@ public class MainActivity extends ActionBarActivity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		helper.getWritableDatabase();
 	}
 }

@@ -21,6 +21,7 @@ public class ActivityResposta extends ActionBarActivity {
 		setContentView(R.layout.activity_resposta);
 		
 		Bundle b = getIntent().getExtras();
+		long idLocal = b.getLong("idLocal");
 		String nomeLocal = b.getString("nomeLocal");
 		String tituloLocal = b.getString("tituloLocal");
 		float media = b.getFloat("mediaAvaliacao");
