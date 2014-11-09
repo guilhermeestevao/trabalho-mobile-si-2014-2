@@ -39,6 +39,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:numStars="5"
+        android:isIndicator="true"
         android:layout_below="@+id/TV_media_avaliacao_resposta" />
 
     <TextView
@@ -58,7 +59,8 @@
         android:layout_height="wrap_content"
         style="@style/moneyRatingBar"
         android:layout_below="@+id/TV_custo_por_pessoa_resposta"
-        android:numStars="4" />
+        android:numStars="4" 
+        android:isIndicator="true"/>
 
     <Button
         android:id="@+id/compartilar_resposta"
