@@ -69,12 +69,16 @@ public class MainActivity extends Activity {
 			}
 			
 			googleMap.setOnInfoWindowClickListener(new OnInfoWindowClickListener() {
-				
+			
 				@Override
 				public void onInfoWindowClick(Marker marker) {
 					Intent it = new Intent("AVALIAR");
+					long id = getLocalTitle(marker.getTitle());
+					it.putExtra("local", marker.getTitle());
+					it.putExtra("id", id);
 					startActivity(it);
 				}
+				
 			});
 			
 			
@@ -82,6 +86,15 @@ public class MainActivity extends Activity {
 		}
 	}
 
+	private long getLocalTitle(String title){
+		for (Local local : this.locais) {
+			if(local.getName().equals(title))
+				return local.getId();
+		}
+		
+		return 0;
+	}
+	
 	@Override
 	protected void onResume() {
 		super.onResume();
@@ -165,6 +178,7 @@ public class MainActivity extends Activity {
 				
 				MarkerOptions marker = new MarkerOptions().position(new LatLng(latitude, longitude)).
 						title(local.getName()).snippet("Clique aqui para avaliar o local");			 
+				
 				googleMap.addMarker(marker);
 				LatLng latLngLocal = new LatLng(latitude, longitude);
 				LatLng myLatLgn = new LatLng(myLocation.getLatitude(), myLocation.getLongitude());
