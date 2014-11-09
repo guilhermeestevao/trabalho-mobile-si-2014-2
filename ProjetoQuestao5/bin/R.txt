@@ -378,9 +378,10 @@ int layout abc_simple_decor 0x7f030017
 int layout activity_friends_checked 0x7f030018
 int layout activity_main 0x7f030019
 int layout activity_resposta 0x7f03001a
-int layout layout_list 0x7f03001b
-int layout layout_list_main 0x7f03001c
-int layout support_simple_spinner_dropdown_item 0x7f03001d
+int layout avaliacao_layout 0x7f03001b
+int layout layout_list 0x7f03001c
+int layout layout_list_main 0x7f03001d
+int layout support_simple_spinner_dropdown_item 0x7f03001e
 int menu activity_friends_checked 0x7f0d0000
 int menu activity_resposta 0x7f0d0001
 int menu avaliacoes 0x7f0d0002
