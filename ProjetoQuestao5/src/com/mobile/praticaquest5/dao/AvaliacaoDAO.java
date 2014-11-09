@@ -40,8 +40,15 @@ public class AvaliacaoDAO {
 		List<Avaliacao> allAvaliacao = new ArrayList<Avaliacao>();
 		Cursor c = query(null, null, null, null, null, null);
 		while(c.moveToNext()){
-			Avaliacao a = Avaliacao.cursorToAvaliacao(c);
-			allAvaliacao.add(a);
+			
+			Avaliacao newAvaliacao = new Avaliacao();
+			newAvaliacao.setId(c.getLong(AvaliacaoTable.ID_COLUMN_INDEX));
+			newAvaliacao.setNomeLocal(c.getString(AvaliacaoTable.NOME_LOCAL_COLUMN_INDEX));
+			newAvaliacao.setIdLocal(c.getLong(AvaliacaoTable.ID_LOCAL_COLUMN_INDEX));
+			newAvaliacao.setMediaGeralLocal(c.getFloat(AvaliacaoTable.MEDIA_GERAL_LOCAL_COLUMN_INDEX));
+			newAvaliacao.setAvaliacaoCustoLocal(c.getFloat(AvaliacaoTable.AVALIACAO_CUSTO_LOCAL_COLUMN_INDEX));
+			allAvaliacao.add(newAvaliacao);
+		
 		}
 		c.close();
 		return allAvaliacao;
@@ -69,8 +76,6 @@ public class AvaliacaoDAO {
 		String values[] = { id +""}; 
 		return delete("_id = ?", values);
 	}
-	
-	
 	
 	public Avaliacao insert(Avaliacao avaliacao){
 		ContentValues value =  new ContentValues();
