@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import com.google.android.gms.plus.model.people.Person.Collection;
 import com.ufc.mobile.quest1.R;
 import com.ufc.mobile.quest1.model.Local;
 
