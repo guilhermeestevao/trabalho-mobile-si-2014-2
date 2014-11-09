@@ -39,6 +39,7 @@
             android:name="com.mobile.praticaquest5.ActivityFriendsChecked"
             android:label="@string/title_activity_activity_friends_checked" >
         </activity>
+        <activity android:name=".ActivityListaAvaliacoes" />
     </application>
 
 </manifest>
