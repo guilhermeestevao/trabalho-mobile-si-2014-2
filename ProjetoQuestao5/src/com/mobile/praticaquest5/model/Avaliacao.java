@@ -5,6 +5,7 @@ import java.io.Serializable;
 import com.mobile.praticaquest5.sqlite.AvaliacaoTable;
 
 import android.database.Cursor;
+import android.util.Log;
 
 public class Avaliacao implements Serializable{
 
