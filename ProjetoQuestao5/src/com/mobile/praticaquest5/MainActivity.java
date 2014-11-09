@@ -34,12 +34,22 @@ public class MainActivity extends ActionBarActivity {
 	private CheckBox CBservicoEntrega;
 	private RadioGroup RGvoltarAoLocal;
 	private Button btnEnviar;
-
+	private String local;
+	private long id;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
+		if(getIntent().hasExtra("local") && getIntent().hasExtra("id")){
+			 local = getIntent().getExtras().getString("local");
+			 id = getIntent().getExtras().getLong("id");
+			 Toast.makeText(this, id+" "+local, Toast.LENGTH_LONG).show();
+		}
+		
+	
+	
 		TVnomeLocal = (TextView) findViewById(R.id.nomeLocal);
 		ETtituloAvaliacao = (EditText) findViewById(R.id.tituloAvaliacao);
 		SfazerNoLocal = (Spinner) findViewById(R.id.fazerNoLocal);
@@ -71,19 +81,19 @@ public class MainActivity extends ActionBarActivity {
 				float mediaAvaliacao = (atendimento + custoBeneficio + ambiente + comida) / 4;
 
 				if (tituloLocal.equals("") || tituloLocal == null) {
-					Toast.makeText(MainActivity.this, "Campo Titulo Local não preenchido", Toast.LENGTH_SHORT).show();
+					Toast.makeText(MainActivity.this, "Campo Titulo Local nï¿½o preenchido", Toast.LENGTH_SHORT).show();
 				} else if (atendimento == 0) {
-					Toast.makeText(MainActivity.this, "Campo Atendimento não preenchido", Toast.LENGTH_SHORT).show();
+					Toast.makeText(MainActivity.this, "Campo Atendimento nï¿½o preenchido", Toast.LENGTH_SHORT).show();
 				} else if (comida == 0) {
-					Toast.makeText(MainActivity.this, "Campo Comida não preenchido", Toast.LENGTH_SHORT).show();
+					Toast.makeText(MainActivity.this, "Campo Comida nï¿½o preenchido", Toast.LENGTH_SHORT).show();
 				} else if (custoBeneficio == 0) {
-					Toast.makeText(MainActivity.this, "Campo Custo Benefício não preenchido", Toast.LENGTH_SHORT).show();
+					Toast.makeText(MainActivity.this, "Campo Custo Benefï¿½cio nï¿½o preenchido", Toast.LENGTH_SHORT).show();
 				} else if (ambiente == 0) {
-					Toast.makeText(MainActivity.this, "Campo Ambiente não preenchido", Toast.LENGTH_SHORT).show();
+					Toast.makeText(MainActivity.this, "Campo Ambiente nï¿½o preenchido", Toast.LENGTH_SHORT).show();
 				} else if (custoPorPessoa == 0) {
-					Toast.makeText(MainActivity.this, "Campo Custo por Pessoa não preenchido", Toast.LENGTH_SHORT).show();
+					Toast.makeText(MainActivity.this, "Campo Custo por Pessoa nï¿½o preenchido", Toast.LENGTH_SHORT).show();
 				} else if (RGvoltarAoLocal.getCheckedRadioButtonId() == -1) {
-					Toast.makeText(MainActivity.this, "Campo Voltar ao local não preenchido", Toast.LENGTH_SHORT).show();
+					Toast.makeText(MainActivity.this, "Campo Voltar ao local nï¿½o preenchido", Toast.LENGTH_SHORT).show();
 				} else {
 
 					Intent it = new Intent(MainActivity.this,
