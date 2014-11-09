@@ -54,7 +54,7 @@ public class AvaliacaoDAO {
 				null, null, null);
 	}
 	
-	public Avaliacao getNoteById(long id){
+	public Avaliacao getAvaliacaoById(long id){
 		Cursor c = queryById(id);
 		Avaliacao a = Avaliacao.cursorToAvaliacao(c);
 		c.close();
