@@ -128,10 +128,6 @@ public class MainActivity extends ActionBarActivity {
 					AvaliacaoDAO dao = new AvaliacaoDAO(MainActivity.this);
 					dao.open();
 					Avaliacao newAvaliacao = dao.insert(avaliacao);
-					List<Avaliacao> avaliacoes = dao.getAll();
-					for(Avaliacao av: avaliacoes){
-						Log.i("JSON CHAMADO",avaliacoes.size() + " " + av.toString());
-					}
 					dao.close();
 
 					it.putExtra("idLocal", idLocal);
