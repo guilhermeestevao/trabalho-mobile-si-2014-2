@@ -1,11 +1,17 @@
 package com.ufc.mobile.quest1;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMap.InfoWindowAdapter;
+import com.google.android.gms.maps.GoogleMap.OnCameraChangeListener;
+import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
+import com.google.android.gms.maps.GoogleMap.OnMapClickListener;
+import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
 import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.ufc.mobile.quest1.model.Local;
 import com.ufc.mobile.quest1.util.LocalREST;
@@ -22,6 +28,11 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
@@ -49,13 +60,25 @@ public class MainActivity extends Activity {
 			googleMap = ((MapFragment) getFragmentManager().findFragmentById(
 					R.id.map)).getMap();
 			new DownloadJsonAsyncTask().execute();
-
+ 
 
 			if (googleMap == null) {
 				Toast.makeText(getApplicationContext(),
 						"Sorry! unable to create maps", Toast.LENGTH_SHORT)
 						.show();
 			}
+			
+			googleMap.setOnInfoWindowClickListener(new OnInfoWindowClickListener() {
+				
+				@Override
+				public void onInfoWindowClick(Marker marker) {
+					Intent it = new Intent("AVALIAR");
+					startActivity(it);
+				}
+			});
+			
+			
+			
 		}
 	}
 
@@ -67,7 +90,6 @@ public class MainActivity extends Activity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// TODO Auto-generated method stub
 		MenuInflater inflate = getMenuInflater();
 		inflate.inflate(R.menu.options, menu);
 		return super.onCreateOptionsMenu(menu);
@@ -75,7 +97,6 @@ public class MainActivity extends Activity {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// TODO Auto-generated method stub
 		switch (item.getItemId()) {
 		case R.id.visualizarLocais:
 			Intent it = new Intent(this, ListaLocaisActivity.class);
@@ -95,7 +116,6 @@ public class MainActivity extends Activity {
 
 		@Override
 		protected void onPreExecute() {
-			// TODO Auto-generated method stub
 			super.onPreExecute();
 			dialog = ProgressDialog.show(MainActivity.this, "Aguarde",
 					"Buscando pontos...");
@@ -114,16 +134,16 @@ public class MainActivity extends Activity {
 			if(result == null){
 				AlertDialog.Builder builder = new AlertDialog.Builder(
 						MainActivity.this)
-				.setTitle("Aten��o")
+				.setTitle("Atencao")
 				.setMessage(
-						"N�o foi possivel acessar essas informa��es...")
+						"Nao foi possivel acessar essas informacoes...")
 						.setPositiveButton("OK", null);
 				builder.create().show();
 			}else{
 				addPontos(locais);
 				AlertDialog.Builder builder = new AlertDialog.Builder(
 						MainActivity.this)
-				.setTitle("Aten��o")
+				.setTitle("Atencao")
 				.setMessage(
 						"Foram carregados "+result.size()+" pontos")
 						.setPositiveButton("OK", null);
@@ -142,13 +162,16 @@ public class MainActivity extends Activity {
 			for (Local local : locais) {
 				double latitude = local.getLocation().getLat();
 				double longitude = local.getLocation().getLng();
-				MarkerOptions marker = new MarkerOptions().position(new LatLng(latitude, longitude)).title(local.getName());			 
+				
+				MarkerOptions marker = new MarkerOptions().position(new LatLng(latitude, longitude)).
+						title(local.getName()).snippet("Clique aqui para avaliar o local");			 
 				googleMap.addMarker(marker);
 				LatLng latLngLocal = new LatLng(latitude, longitude);
 				LatLng myLatLgn = new LatLng(myLocation.getLatitude(), myLocation.getLongitude());
 				double distancia = distance(myLatLgn, latLngLocal);
 				local.setDistancia(distancia);
 			}
+				
 		}
 
 		private double distance(LatLng start, LatLng end){
