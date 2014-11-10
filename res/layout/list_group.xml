@@ -1,12 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<CheckedTextView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:orientation="vertical">
+    
+<CheckedTextView 
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:layout_marginLeft="8dp"
+    android:id="@+id/checkedName"
+	android:gravity="left"
+    android:paddingLeft="32dp"
+    android:paddingTop="8dp"
+    android:textSize="14sp"
+    android:textStyle="bold"/>
+
+<CheckedTextView 
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="8dp"
+    android:id="@+id/checkedDistancia"
 	android:gravity="left"
     android:paddingLeft="32dp"
     android:paddingTop="8dp"
     android:paddingBottom="10dp"
-    android:textSize="20sp"
+    android:textSize="14sp"
     android:textStyle="bold"/>
-   
+
+</LinearLayout>
