@@ -40,6 +40,7 @@
             android:label="@string/title_activity_activity_friends_checked" >
         </activity>
         <activity android:name=".ActivityListaAvaliacoes" />
+        <activity android:name=".ActivityAvaliacoesPorLocal"></activity>
     </application>
 
 </manifest>
