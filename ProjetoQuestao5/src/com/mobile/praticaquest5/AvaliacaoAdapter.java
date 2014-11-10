@@ -44,11 +44,11 @@ public class AvaliacaoAdapter extends BaseAdapter{
 	public View getView(int position, View convertView, ViewGroup parent) {
 		Avaliacao avaliacao = avaliacoes.get(position);
 		LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		View view = inflater.inflate(R.layout.avaliacao_layout, null);
+		View view = inflater.inflate(R.layout.layout_avaliacao, null);
 		TextView text = (TextView) view.findViewById(R.id.local);
 		RatingBar rating = (RatingBar) view.findViewById(R.id.avaliacao);
 		text.setText(avaliacao.getNomeLocal());
-		rating.setRating(avaliacao.getAvaliacaoCustoLocal());
+		rating.setRating(avaliacao.getMediaGeralLocal());
 		return view;
 	}
 

@@ -4,6 +4,7 @@
     <string name="app_name">PraticaQuest5</string>
     <string name="hello_world">Hello world!</string>
     <string name="compartilhar">Compartilhar</string>
+    <string name="visualizar_outras_avaliacoes_local">Visualiazar outras avaliações deste local</string>
 	<string name="custo_por_pessoa">Custo por Pessoa</string>
     <string name="media_da_avaliacao">Média da Avaliação</string>
 	<string name="nome_local">Pé de Serra</string>
@@ -39,6 +40,7 @@
     <string name="title_activity_list">Lista Amigos</string>
     <string name="title_activity_activity_friends_checked">ActivityFriendsChecked</string>
     <string name="ver_avaliacoes">Ver todas as avaliações</string>
+    <string name="ver_avaliacoes_local">Ver avaliações deste local</string>
     
     
     

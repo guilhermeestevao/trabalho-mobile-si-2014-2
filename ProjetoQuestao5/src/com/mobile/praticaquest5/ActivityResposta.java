@@ -21,7 +21,7 @@ public class ActivityResposta extends ActionBarActivity {
 		setContentView(R.layout.activity_resposta);
 		
 		Bundle b = getIntent().getExtras();
-		long idLocal = b.getLong("idLocal");
+		final long idLocal = b.getLong("idLocal");
 		String nomeLocal = b.getString("nomeLocal");
 		String tituloLocal = b.getString("tituloLocal");
 		float media = b.getFloat("mediaAvaliacao");
@@ -35,6 +35,19 @@ public class ActivityResposta extends ActionBarActivity {
 		ratingMedia.setRating(media);
 		RatingBar ratingCustoPorPessoa = (RatingBar) findViewById(R.id.rating_custo_por_pessoa_reposta);
 		ratingCustoPorPessoa.setRating(custoPorPessoa);
+		
+		Button visualizarAvaliacoesLocal = (Button) findViewById(R.id.visualizar_outras_avaliacoes_local);
+		visualizarAvaliacoesLocal.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				
+				Intent it = new Intent(ActivityResposta.this, ActivityAvaliacoesPorLocal.class);
+				it.putExtra("idLocal", idLocal);
+				startActivity(it);
+			
+			}
+		});
 		
 		Button compartilhar = (Button) findViewById(R.id.compartilar_resposta);
 		compartilhar.setOnClickListener(new OnClickListener() {
