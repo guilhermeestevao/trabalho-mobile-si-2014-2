@@ -1,6 +1,5 @@
 package com.ufc.mobile.quest1.adapter;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -69,8 +68,12 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 		if(convertView == null)
 			convertView = inflater.inflate(R.layout.list_group, null);
 		Local group = (Local) getGroup(groupPosition);
-		((CheckedTextView) convertView).setText(group.getName());
-		((CheckedTextView) convertView).setChecked(isExpanded);
+		CheckedTextView cName = (CheckedTextView) convertView.findViewById(R.id.checkedName);
+		cName.setText(group.getName());
+		cName.setChecked(isExpanded);
+		CheckedTextView cDistancia = (CheckedTextView) convertView.findViewById(R.id.checkedDistancia);
+		cDistancia.setText("Distância: " + String.format("%.2f", group.getDistancia()));
+		cDistancia.setChecked(isExpanded);
 		return convertView;
 	}
 
