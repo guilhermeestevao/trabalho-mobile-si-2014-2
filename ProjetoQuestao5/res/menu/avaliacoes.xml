@@ -6,5 +6,11 @@
         android:orderInCategory="100"
         android:title="@string/ver_avaliacoes"
         android:showAsAction="always"/>
+	 
+	 <item
+        android:id="@+id/action_ver_avaliacoes_por_local"
+        android:orderInCategory="100"
+        android:title="@string/ver_avaliacoes_local"
+        android:showAsAction="always"/>
     
 </menu>

@@ -47,7 +47,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/rating_media_resposta"
-        android:paddingTop="20dp"
+        android:paddingTop="15dp"
         android:text="@string/custo_por_pessoa"
         android:textSize="20sp"
         android:textStyle="bold" />
@@ -67,8 +67,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/rating_custo_por_pessoa_reposta"
+        android:layout_alignRight="@+id/visualizar_outras_avaliacoes_local"
         android:layout_below="@+id/rating_custo_por_pessoa_reposta"
-        android:layout_marginTop="26dp"
+        android:layout_marginTop="16dp"
         android:text="@string/compartilhar" />
+
+    <Button
+        android:id="@+id/visualizar_outras_avaliacoes_local"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/compartilar_resposta"
+        android:text="@string/visualizar_outras_avaliacoes_local" />
     
 </RelativeLayout>

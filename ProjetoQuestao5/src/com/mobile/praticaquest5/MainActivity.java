@@ -159,6 +159,10 @@ public class MainActivity extends ActionBarActivity {
 		if (id == R.id.action_ver_avaliacoes) {
 			Intent it = new Intent(this, ActivityListaAvaliacoes.class);
 			startActivity(it);
+		} else if (id == R.id.action_ver_avaliacoes_por_local){
+			Intent it = new Intent(this, ActivityAvaliacoesPorLocal.class);
+			it.putExtra("idLocal", idLocal);
+			startActivity(it);
 		}
 		return super.onOptionsItemSelected(item);
 	}
