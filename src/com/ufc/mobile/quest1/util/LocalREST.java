@@ -15,7 +15,7 @@ import com.ufc.mobile.quest1.model.Location;
 
 public class LocalREST {
 
-	private static final String URL = "http://192.168.0.118:8080/";
+	private static final String URL = "http://192.168.0.107:8080/";
 
 	public List<Local> getLocais(){
 		String[] resposta = new WebServiceCliente().get(URL);
