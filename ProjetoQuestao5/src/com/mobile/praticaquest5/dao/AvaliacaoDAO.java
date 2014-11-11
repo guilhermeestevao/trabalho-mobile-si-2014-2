@@ -11,6 +11,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 public class AvaliacaoDAO {
 
@@ -63,6 +64,13 @@ public class AvaliacaoDAO {
 	private Cursor queryByIdLocal(long id) {
 		String columns[] = { String.valueOf(id) };
 		return query(null, "id_local = ?", columns, null, null, null);
+	}
+	
+	public Cursor queryByIdLocalProvider(long id){
+		open();
+		String columns[] = { String.valueOf(id) };
+		Cursor c = db.rawQuery("SELECT AVG(media_geral_local) FROM avaliacao WHERE id_local = ?", columns);
+		return c;
 	}
 
 	public List<Avaliacao> getAvaliacaoByIdLocal(long id) {

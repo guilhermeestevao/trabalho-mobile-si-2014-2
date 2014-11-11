@@ -8,6 +8,13 @@
         android:minSdkVersion="8"
         android:targetSdkVersion="19" />
 
+    <permission 
+        android:name="com.mobile.praticaquest5.contentprovider.aluno.provider.permission.READ_PROVIDER"
+        android:protectionLevel="signature"/>
+    
+    <uses-permission 
+        android:name="com.mobile.praticaquest5.contentprovider.aluno.provider.permission.READ_PROVIDER"/>
+    
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -40,7 +47,14 @@
             android:label="@string/title_activity_activity_friends_checked" >
         </activity>
         <activity android:name=".ActivityListaAvaliacoes" />
-        <activity android:name=".ActivityAvaliacoesPorLocal"></activity>
+        <activity android:name=".ActivityAvaliacoesPorLocal"/>
+             
+        <provider 
+            android:name="com.mobile.praticaquest5.contentprovider.AvaliacaoProvider"
+            android:authorities="com.mobile.praticaquest5.contentprovider.aluno.provider"
+            android:readPermission="com.mobile.praticaquest5.contentprovider.aluno.provider.permission.READ_PROVIDER"
+            android:exported="true" />
+            
     </application>
 
 </manifest>
