@@ -22,10 +22,15 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Typeface;
 import android.location.Location;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -33,6 +38,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RatingBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,7 +56,7 @@ public class MainActivity extends Activity {
 		try {
 			// Loading map
 			initilizeMap();
-
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -74,6 +81,7 @@ public class MainActivity extends Activity {
 				public void onInfoWindowClick(Marker marker) {
 					Intent it = new Intent("AVALIAR");
 					long id = getLocalTitle(marker.getTitle());
+					
 					it.putExtra("local", marker.getTitle());
 					it.putExtra("id", id);
 					startActivity(it);
@@ -81,7 +89,49 @@ public class MainActivity extends Activity {
 				
 			});
 			
-			
+			googleMap.setInfoWindowAdapter(new InfoWindowAdapter() {
+				
+				@Override
+				public View getInfoWindow(Marker marker) {
+					// TODO Auto-generated method stub
+					return null;
+				}
+				
+				@Override
+				public View getInfoContents(Marker marker) {
+					
+					long id = getLocalTitle(marker.getTitle());
+					
+					Uri uri = Uri.parse("content://com.mobile.praticaquest5.contentprovider.aluno.provider/avaliacao");
+					uri = Uri.withAppendedPath(uri, String.valueOf(id));
+					Cursor cursor = getContentResolver().query(uri, null, null, null, null);
+					
+					LinearLayout ll = new LinearLayout(MainActivity.this);
+					ll.setOrientation(LinearLayout.VERTICAL);
+					
+					TextView tv = new TextView(MainActivity.this);
+					tv.setGravity(Gravity.CENTER);
+					tv.setTextSize(20);
+					tv.setTypeface(tv.getTypeface(), Typeface.BOLD);
+					tv.setText(marker.getTitle());
+					ll.addView(tv);
+					
+					TextView tv1 = new TextView(MainActivity.this);
+					tv1.setGravity(Gravity.CENTER);
+					tv1.setText(marker.getSnippet());
+					ll.addView(tv1);
+					
+					cursor.moveToFirst();
+					
+					RatingBar rb = new RatingBar(MainActivity.this);
+					rb.setRating((float) cursor.getDouble(0));
+					ll.addView(rb);
+					
+					cursor.close();
+					
+					return ll;
+				}
+			});
 			
 		}
 	}
@@ -184,6 +234,7 @@ public class MainActivity extends Activity {
 				LatLng myLatLgn = new LatLng(myLocation.getLatitude(), myLocation.getLongitude());
 				double distancia = distance(myLatLgn, latLngLocal);
 				local.setDistancia(distancia);
+			
 			}
 				
 		}
